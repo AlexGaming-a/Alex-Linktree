@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alex Gaming</title>
+  <style>
+    /* Hintergrundbild mit Frost-Overlay */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: url('https://cdn.discordapp.com/attachments/1232426120884916296/1304915173659906068/wp11709224.png?ex=67312075&is=672fcef5&hm=7aa6ce827dddd5a5101b3194cceb4ad07042122078b6e0d5813a21aaad2ab4ab&') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    /* Frost-Overlay über das Hintergrundbild legen */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.027); /* Frostiger, halbtransparenter Overlay */
+      z-index: 0;
+    }
+
+    /* Container für die Links */
+    .linktree-container {
+      background: rgba(109, 109, 109, 0.384);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+      z-index: 1; /* Damit die Schneeflocken im Hintergrund bleiben */
+    }
+
+    /* Profilbild Styling */
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 4px solid #1d1d1d;
+    }
+
+    .title {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .description {
+      font-size: 0.9em;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .link {
+      display: block;
+      background: #525252;
+      color: #00b9ff;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 88px;
+      margin-bottom: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .link:hover {
+      background: #ffffff;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 0.8em;
+      color: #525252;
+    }
+
+    /* Schneeflocken Styling */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 1em;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 0;
+    }
+
+    /* Animation für die Schneeflocken */
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Frost-Overlay, das über das Hintergrundbild gelegt wird -->
+  <div class="overlay"></div>
+
+  <div class="linktree-container">
+    <img src="https://cdn.discordapp.com/avatars/1086706179633336350/7d4c382c8dcc96639b90121df17043b8.png?size=1024&format=webp&quality=lossless" alt="Profilbild" class="profile-img">
+    <h1 class="title">Alex Gaming</h1>
+    <p class="description">Ich bin Alex Gaming, Willkommen auf meiner Seite. Wenn du Infomation von mir lesen möchtest gehe auf die Links</p>
+    <a href="https://discord.gg/e3p8efcc7X" class="link">Mein Roleplay Server</a>
+    <a href="https://discord.gg/Z3Ga9Fu5UA" class="link">Mein Discord Communtiy Server</a>
+    <a href="https://www.youtube.com/channel/UCGT55L1BSrXVg9v51HbSgHg" class="link">YouTube</a>
+    <a href="https://www.tiktok.com/@alexgaming_a" class="link">TikTok</a>
+    <a href="https://www.roblox.com/de/users/2627805831/profile" class="link">Roblox</a>
+    <div class="footer">© 2024 Alex Gaming</div>
+  </div>
+
+  <!-- JavaScript für den Schneefall -->
+  <script>
+    const snowflakeCount = 100;  // Anzahl der Schneeflocken
+
+    // Funktion zum Erstellen einer Schneeflocke
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.textContent = ' •';
+      snowflake.style.left = Math.random() * 100 + 'vw';  // Zufällige horizontale Position
+      snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';  // Zufällige Fallgeschwindigkeit
+      snowflake.style.fontSize = Math.random() * 15 + 10 + 'px';  // Zufällige Größe
+
+      document.body.appendChild(snowflake);
+
+      // Entferne die Schneeflocke nach Ende der Animation
+      snowflake.addEventListener('animationend', () => {
+        snowflake.remove();
+      });
+    }
+
+    // Schleife zum Erstellen der Schneeflocken
+    setInterval(createSnowflake, 200);  // alle 200ms eine neue Schneeflocke
+  </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Maximal erlaubte Ladevorgänge und Cooldown-Zeit (in Sekunden)
+      const maxReloads = 10;
+      const cooldownTime = 20; // z.B. 30 Sekunden Cooldown
+
+      // Daten aus localStorage abrufen
+      const reloadCount = parseInt(localStorage.getItem("reloadCount") || "0", 10);
+      const firstLoadTime = parseInt(localStorage.getItem("firstLoadTime") || Date.now(), 10);
+      const cooldownStart = parseInt(localStorage.getItem("cooldownStart") || "0", 10);
+
+      const now = Date.now();
+      const elapsedTime = (now - firstLoadTime) / 1000; // Zeit seit dem ersten Laden in Sekunden
+
+      if (cooldownStart > 0 && (now - cooldownStart) < cooldownTime * 1000) {
+        // Wenn Cooldown aktiv ist, berechne verbleibende Zeit und blockiere Zugang
+        const remainingCooldown = Math.ceil(cooldownTime - (now - cooldownStart) / 1000);
+        alert(`Zu viele Neuladungen! Bitte warten Sie ${remainingCooldown} Sekunden.`);
+        document.body.innerHTML = `<h1>Bitte warten Sie ${remainingCooldown} Sekunden, bevor Sie die Seite erneut laden können.</h1>`;
+        return;
+      }
+
+      if (reloadCount >= maxReloads && elapsedTime <= cooldownTime) {
+        // Wenn max Reloads erreicht und innerhalb des Cooldowns, dann Cooldown starten
+        localStorage.setItem("cooldownStart", now);
+        localStorage.setItem("reloadCount", "0");
+        alert(`Zu viele Neuladungen! Bitte warten Sie ${cooldownTime} Sekunden.`);
+        document.body.innerHTML = `<h1>Bitte warten Sie ${cooldownTime} Sekunden, bevor Sie die Seite erneut laden können.</h1>`;
+      } else {
+        // Wenn innerhalb der erlaubten Reloads, Anzahl erhöhen oder Zeit zurücksetzen
+        if (elapsedTime > cooldownTime) {
+          // Zeit überschritten, also Reload-Zähler zurücksetzen
+          localStorage.setItem("firstLoadTime", now);
+          localStorage.setItem("reloadCount", "1");
+        } else {
+          // Reload-Zähler erhöhen
+          localStorage.setItem("reloadCount", reloadCount + 1);
+        }
+        localStorage.removeItem("cooldownStart");
+      }
+    });
+  </script>
+
+</body>
+</html>
